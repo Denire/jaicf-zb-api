@@ -20,6 +20,12 @@ class ZbPollingConnector(
     private val channel: ZbChannel = ZbChannel(botApi)
 
     override fun processJaicpRequest(request: JaicpBotRequest, channel: JaicpBotChannel): JaicpBotResponse? {
-        return this.channel.process(request)
+        return try {
+            this.channel.process(request)
+        } catch (t: Throwable) {
+            logger.warn("", t)
+            null
+        }
+
     }
 }

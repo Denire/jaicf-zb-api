@@ -5,6 +5,7 @@ import com.justai.jaicf.channel.jaicp.dto.Button
 import com.justai.jaicf.channel.jaicp.dto.ButtonsReply
 import com.justai.jaicf.channel.jaicp.dto.HangupReply
 import com.justai.jaicf.channel.jaicp.dto.ImageReply
+import com.justai.jaicf.channel.jaicp.dto.Reply
 import com.justai.jaicf.channel.jaicp.dto.SwitchReply
 import com.justai.jaicf.channel.jaicp.reactions.JaicpReactions
 import com.justai.jaicf.context.ActionContext
@@ -57,6 +58,10 @@ class ZbReactions : JaicpReactions() {
 
     fun changeContext(path: String) {
         botContext.dialogContext.currentState = path
+    }
+
+    fun customReply(reply: Reply){
+        replies.add(reply)
     }
 }
 

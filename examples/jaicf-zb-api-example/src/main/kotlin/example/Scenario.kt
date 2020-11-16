@@ -4,7 +4,7 @@ import com.justai.jaicf.model.scenario.Scenario
 
 val scenario = object : Scenario() {
     init {
-        state("start"){
+        state("start") {
             activators {
                 regex("/start")
             }
@@ -14,7 +14,7 @@ val scenario = object : Scenario() {
             }
         }
 
-        state("Help"){
+        state("Help") {
             activators {
                 intent("Help")
             }
@@ -25,6 +25,7 @@ val scenario = object : Scenario() {
         }
         fallback {
             reactions.say("You said: ${request.input}")
+            reactions.customZbReaction(CustomZbReply("f0", "f1"))
         }
     }
 }

@@ -43,8 +43,13 @@ class ZbWebhookConnector(
     private val zbChannel: ZbChannel = ZbChannel(botApi)
 
     override fun process(request: HttpBotRequest): HttpBotResponse? {
-        val jaicpBotRequest = request.receiveText().asJaicpBotRequest()
-        val channel = channelMap[jaicpBotRequest.channelBotId] ?: zbChannel
-        return processJaicpRequest(jaicpBotRequest, channel)?.deserialized()?.asJsonHttpBotResponse()
+        return try {
+            val jaicpBotRequest = request.receiveText().asJaicpBotRequest()
+            val channel = channelMap[jaicpBotRequest.channelBotId] ?: zbChannel
+            processJaicpRequest(jaicpBotRequest, channel)?.deserialized()?.asJsonHttpBotResponse()
+        } catch (t: Throwable) {
+            logger.warn("", t)
+            null
+        }
     }
 }

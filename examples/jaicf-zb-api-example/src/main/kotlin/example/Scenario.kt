@@ -25,7 +25,6 @@ val scenario = object : Scenario() {
         }
         fallback {
             reactions.say("You said: ${request.input}")
-            reactions.customZbReaction(CustomZbReply("f0", "f1"))
         }
     }
 }

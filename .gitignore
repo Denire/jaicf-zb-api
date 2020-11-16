@@ -48,3 +48,7 @@ Thumbs.db
 *.mov
 *.wmv
 
+local.properties
+.gradle/
+build/
+*.iml

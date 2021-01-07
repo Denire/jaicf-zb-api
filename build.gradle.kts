@@ -14,7 +14,7 @@ buildscript {
 }
 
 allprojects {
-    group = "com.justai.jaicf"
+    group = "com.mva"
     version = "0.10.0"
 
     repositories {

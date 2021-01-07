@@ -12,9 +12,7 @@ data class CustomZbReply(
     val field0: String,
     val field1: String
 ) : Reply("example") {
-    override fun serialized(): String {
-        return JSON.stringify(this)
-    }
+    override fun serialized() = JSON.stringify(this)
 }
 
 fun Reactions.customZbReaction(reply: CustomZbReply) {

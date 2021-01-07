@@ -14,13 +14,12 @@ import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.justai.jaicf.channel.jaicp.dto.JaicpBotRequest
 import com.justai.jaicf.channel.jaicp.dto.JaicpBotResponse
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonConfiguration
 
-val KXS = Json(JsonConfiguration.Stable.copy(strictMode = false, encodeDefaults = false))
+val KXS = Json { encodeDefaults = true; isLenient = true; ignoreUnknownKeys = true }
 
-internal fun String.asJaicpBotRequest() = KXS.parse(JaicpBotRequest.serializer(), this)
+internal fun String.asJaicpBotRequest() = KXS.decodeFromString(JaicpBotRequest.serializer(), this)
 
-internal fun JaicpBotResponse.deserialized() = KXS.stringify(JaicpBotResponse.serializer(), this)
+internal fun JaicpBotResponse.deserialized() = KXS.encodeToString(JaicpBotResponse.serializer(), this)
 
 object JSON {
     val mapper = ObjectMapper()
@@ -41,36 +40,23 @@ object JSON {
 
     fun parse(json: String) = mapper.readTree(json)
 
-    inline fun <reified T> parse(json: String):T =
-        mapper.readValue(json, T::class.java)
+    inline fun <reified T> parse(json: String): T = mapper.readValue(json, T::class.java)
 
-    fun <T> parse(json: String, clazz: Class<T>):T =
-        mapper.readValue(json, clazz)
+    fun <T> parse(json: String, clazz: Class<T>): T = mapper.readValue(json, clazz)
 
-    fun <T> parseNullable(json: String?, clazz: Class<T>): T? {
-        json ?: return null
-        return mapper.readValue(json, clazz)
-    }
+    fun <T> parseNullable(json: String?, clazz: Class<T>): T? = json?.let { mapper.readValue(json, clazz) }
 
-    fun <T> parse(json: String, tr: TypeReference<T>):T =
-        mapper.readValue(json, tr)
+    fun <T> parse(json: String, tr: TypeReference<T>): T = mapper.readValue(json, tr)
 
-    inline fun <reified T> parse(json: JsonNode):T =
-        mapper.treeToValue(json, T::class.java)
+    inline fun <reified T> parse(json: JsonNode): T = mapper.treeToValue(json, T::class.java)
 
-    fun <T> parse(json: JsonNode, clazz: Class<T>):T =
-        mapper.treeToValue(json, clazz)
+    fun <T> parse(json: JsonNode, clazz: Class<T>): T = mapper.treeToValue(json, clazz)
 
-    fun <T> stringify(data: T): String =
-        mapper.writeValueAsString(data)
+    fun <T> stringify(data: T): String = mapper.writeValueAsString(data)
 
-    fun <T> stringifyNullable(data: T?): String? {
-        data ?: return null
-        return mapper.writeValueAsString(data)
-    }
+    fun <T> stringifyNullable(data: T?): String? = data?.let { mapper.writeValueAsString(data) }
 
-    fun toNode(data: Any): JsonNode =
-        mapper.valueToTree(data)
+    fun toNode(data: Any): JsonNode = mapper.valueToTree(data)
 
     fun toObject(data: Any): ObjectNode =
         mapper.valueToTree(data)

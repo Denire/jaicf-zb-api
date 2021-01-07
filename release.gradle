@@ -1,0 +1,27 @@
+/**
+ * Bintray release configuration
+ * */
+ext {
+    bintrayOrg = "vmetelyagin"
+    bintrayRepo = 'mva'
+    bintrayName = project.name
+
+    publishedGroupId = rootProject.getGroup()
+    libraryName = 'jaicf-zb-api'
+
+    artifact = project.name
+    packagingType = 'jar'
+
+    siteUrl = 'https://framework.just-ai.com'
+    gitUrl = 'https://bitbucket.org/just-ai/jaicf-kotlin-external'
+
+    libraryVersion = rootProject.getVersion()
+
+    developerId = 'mva'
+    developerName = 'vmetelyagin'
+    developerEmail = 'v.metelyagin@just-ai.com'
+
+    allLicenses = ["Apache-2.0"]
+}
+
+apply from: rootProject.file('release/bintray.gradle')

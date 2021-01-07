@@ -7,7 +7,7 @@
     <groupId>com.justai.jaicf</groupId>
     <artifactId>jaicf-kotlin-external</artifactId>
     <packaging>pom</packaging>
-    <version>0.8.2</version>
+    <version>0.10.0</version>
     <modules>
         <module>jaicf-zb-api</module>
         <module>examples/jaicf-zb-api-example</module>

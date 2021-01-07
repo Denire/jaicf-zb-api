@@ -5,7 +5,7 @@
     <parent>
         <artifactId>jaicf-kotlin-external</artifactId>
         <groupId>com.justai.jaicf</groupId>
-        <version>0.8.2</version>
+        <version>0.10.0</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>

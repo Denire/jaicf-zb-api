@@ -6,11 +6,11 @@
 
     <groupId>com.justai.jaicf</groupId>
     <artifactId>jaicf-zb-api</artifactId>
-    <version>0.8.2</version>
+    <version>0.10.0</version>
 
     <properties>
-        <kotlin.version>1.3.61</kotlin.version>
-        <jaicf.version>0.9.0</jaicf.version>
+        <kotlin.version>1.4.10</kotlin.version>
+        <jaicf.version>0.10.0</jaicf.version>
         <jackson.version>2.11.3</jackson.version>
     </properties>
 

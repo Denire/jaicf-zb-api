@@ -5,10 +5,10 @@ import com.justai.jaicf.channel.jaicp.dto.Button
 import com.justai.jaicf.channel.jaicp.dto.ButtonsReply
 import com.justai.jaicf.channel.jaicp.dto.HangupReply
 import com.justai.jaicf.channel.jaicp.dto.ImageReply
+import com.justai.jaicf.channel.jaicp.dto.LiveChatSwitchReply
 import com.justai.jaicf.channel.jaicp.dto.Reply
-import com.justai.jaicf.channel.jaicp.dto.SwitchReply
+import com.justai.jaicf.channel.jaicp.dto.TelephonySwitchReply
 import com.justai.jaicf.channel.jaicp.reactions.JaicpReactions
-import com.justai.jaicf.context.ActionContext
 import com.justai.jaicf.helpers.http.toUrl
 import com.justai.jaicf.logging.AudioReaction
 import com.justai.jaicf.logging.ButtonsReaction
@@ -30,7 +30,15 @@ class ZbReactions : JaicpReactions() {
     }
 
     fun transferCall(phoneNumber: String, sipHeaders: Map<String, String> = emptyMap()) {
-        replies.add(SwitchReply(phoneNumber, sipHeaders))
+        replies.add(TelephonySwitchReply(phoneNumber, sipHeaders))
+    }
+
+    fun switch(message: String) {
+        replies.add(LiveChatSwitchReply(firstMessage = message))
+    }
+
+    fun switch(switchReply: LiveChatSwitchReply) {
+        replies.add(switchReply)
     }
 
     override fun image(url: String): ImageReaction {
@@ -60,9 +68,10 @@ class ZbReactions : JaicpReactions() {
         botContext.dialogContext.currentState = path
     }
 
-    fun customReply(reply: Reply){
+    fun customReply(reply: Reply) {
         replies.add(reply)
     }
+
 }
 
 val Reactions.zb

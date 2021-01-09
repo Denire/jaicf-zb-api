@@ -8,13 +8,15 @@ import com.justai.jaicf.channel.jaicp.JaicpPollingConnector
 import com.justai.jaicf.channel.jaicp.dto.JaicpBotRequest
 import com.justai.jaicf.channel.jaicp.dto.JaicpBotResponse
 import com.justai.jaicf.helpers.logging.WithLogger
+import io.ktor.client.features.logging.*
 
 class ZbPollingConnector(
     botApi: BotApi,
     accessToken: String,
     url: String = DEFAULT_PROXY_URL,
-    channels: List<JaicpChannelFactory> = emptyList()
-) : JaicpPollingConnector(botApi, accessToken, url, channels),
+    channels: List<JaicpChannelFactory> = emptyList(),
+    logLevel: LogLevel = LogLevel.BODY
+) : JaicpPollingConnector(botApi, accessToken, url, channels, logLevel),
     WithLogger {
 
     private val channel: ZbChannel = ZbChannel(botApi)

@@ -1,6 +1,10 @@
 package example
 
+import com.justai.jaicf.channel.jaicp.reactions.switchToOperator
+import com.justai.jaicf.internal.zb.reactions.zb
+import com.justai.jaicf.internal.zb.zb
 import com.justai.jaicf.model.scenario.Scenario
+import com.justai.jaicf.reactions.jaicp.jaicpAsync
 
 val scenario = object : Scenario() {
     init {
@@ -21,6 +25,14 @@ val scenario = object : Scenario() {
             action {
                 reactions.say("I can give you a picture of cat")
                 reactions.image("https://www.bluecross.org.uk/sites/default/files/d8/assets/images/118809lprLR.jpg")
+            }
+        }
+        state("Switch") {
+            activators {
+                regex("switch")
+            }
+            action(zb) {
+                reactions.switch("Hi operator, help me plz.")
             }
         }
         fallback {

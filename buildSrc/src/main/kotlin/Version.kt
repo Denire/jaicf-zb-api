@@ -4,7 +4,7 @@ object Version {
     const val stdLib = "1.4.10"
 
     // Jaicf
-    const val jaicf = "0.10.0"
+    const val jaicf = "x0.10.1"
 
     // Libraries
     const val jackson = "2.10.0"

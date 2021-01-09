@@ -15,7 +15,7 @@ buildscript {
 
 allprojects {
     group = "com.mva"
-    version = "0.10.0"
+    version = "x0.10.1"
 
     repositories {
         google()
@@ -23,5 +23,6 @@ allprojects {
         mavenCentral()
         mavenLocal()
         maven(uri("https://jitpack.io"))
+        maven("https://dl.bintray.com/vmetelyagin/mva")
     }
 }

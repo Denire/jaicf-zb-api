@@ -9,7 +9,7 @@ val accessToken = System.getenv("JAICP_API_TOKEN") ?: "some-access-token"
 
 
 val bot = BotEngine(
-    model = scenario.model,
+    scenario = scenario,
     conversationLoggers = arrayOf(
         Slf4jConversationLogger()
     ),

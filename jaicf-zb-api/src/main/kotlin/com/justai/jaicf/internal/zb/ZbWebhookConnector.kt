@@ -5,12 +5,10 @@ import com.justai.jaicf.channel.http.HttpBotRequest
 import com.justai.jaicf.channel.http.HttpBotResponse
 import com.justai.jaicf.channel.http.asJsonHttpBotResponse
 import com.justai.jaicf.channel.jaicp.DEFAULT_PROXY_URL
-import com.justai.jaicf.channel.jaicp.JaicpBotChannel
 import com.justai.jaicf.channel.jaicp.JaicpChannelFactory
 import com.justai.jaicf.channel.jaicp.JaicpCompatibleBotChannel
 import com.justai.jaicf.channel.jaicp.JaicpServer
 import com.justai.jaicf.channel.jaicp.JaicpWebhookConnector
-import com.justai.jaicf.channel.jaicp.dto.ChannelConfig
 import com.justai.jaicf.channel.jaicp.dto.JaicpAsyncResponse
 import com.justai.jaicf.channel.jaicp.dto.JaicpBotResponse
 import com.justai.jaicf.channel.jaicp.dto.JaicpErrorResponse
@@ -33,14 +31,14 @@ import com.justai.jaicf.helpers.logging.WithLogger
  * @param botApi the [BotApi] implementation used to process the requests for all channels
  * @param accessToken can be configured in JAICP Web Interface
  * @param url chatadapter URL
- * @param channels is a list of channels which will be managed by connector. If no channel for channelType is found, zbNative channel will process it.
+ * @param nativeChannels is a list of channels which will be managed by connector. If no channel for channelType is found, zbNative channel will process it.
  * */
 class ZbWebhookConnector(
     botApi: BotApi,
     accessToken: String,
     url: String = DEFAULT_PROXY_URL,
-    channels: List<JaicpChannelFactory> = emptyList(),
-) : JaicpWebhookConnector(botApi, accessToken, url, channels),
+    nativeChannels: List<JaicpChannelFactory> = emptyList(),
+) : JaicpWebhookConnector(botApi, accessToken, url, nativeChannels),
     WithLogger {
 
     private val zbChannel: ZbChannel = ZbChannel(botApi)

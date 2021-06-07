@@ -15,6 +15,6 @@ import example.bot
 fun main() {
     val channels = listOf(ChatWidgetChannel)
     object : JaicpServer(bot, accessToken, channels) {
-        override val connector: JaicpWebhookConnector = ZbWebhookConnector(bot, accessToken, channels = channels)
+        override val connector: JaicpWebhookConnector = ZbWebhookConnector(bot, accessToken, nativeChannels = channels)
     }.start(wait = true)
 }

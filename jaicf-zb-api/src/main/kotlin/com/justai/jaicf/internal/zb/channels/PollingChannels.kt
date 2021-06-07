@@ -1,6 +1,6 @@
 @file:Suppress("unused")
 
-package com.justai.jaicf.internal.zb.channels.polling
+package com.justai.jaicf.internal.zb.channels
 
 import com.justai.jaicf.api.BotApi
 import com.justai.jaicf.channel.jaicp.JaicpCompatibleBotChannel

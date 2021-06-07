@@ -15,13 +15,13 @@ import com.justai.jaicf.channel.jaicp.dto.JaicpBotRequest
 import com.justai.jaicf.channel.jaicp.dto.JaicpBotResponse
 import kotlinx.serialization.json.Json
 
-val KXS = Json { encodeDefaults = true; isLenient = true; ignoreUnknownKeys = true }
+val KotlinxSerializer = Json { encodeDefaults = true; isLenient = true; ignoreUnknownKeys = true }
 
-internal fun String.asJaicpBotRequest() = KXS.decodeFromString(JaicpBotRequest.serializer(), this)
+internal fun String.asJaicpBotRequest() = KotlinxSerializer.decodeFromString(JaicpBotRequest.serializer(), this)
 
-internal fun JaicpBotResponse.deserialized() = KXS.encodeToString(JaicpBotResponse.serializer(), this)
+internal fun JaicpBotResponse.deserialized() = KotlinxSerializer.encodeToString(JaicpBotResponse.serializer(), this)
 
-object JSON {
+object JacksonObjectMapper {
     val mapper = ObjectMapper()
 
     init {

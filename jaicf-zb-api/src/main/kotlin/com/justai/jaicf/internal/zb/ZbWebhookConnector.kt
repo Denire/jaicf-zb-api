@@ -11,6 +11,9 @@ import com.justai.jaicf.channel.jaicp.JaicpCompatibleBotChannel
 import com.justai.jaicf.channel.jaicp.JaicpServer
 import com.justai.jaicf.channel.jaicp.JaicpWebhookConnector
 import com.justai.jaicf.channel.jaicp.dto.ChannelConfig
+import com.justai.jaicf.channel.jaicp.dto.JaicpAsyncResponse
+import com.justai.jaicf.channel.jaicp.dto.JaicpBotResponse
+import com.justai.jaicf.channel.jaicp.dto.JaicpErrorResponse
 import com.justai.jaicf.channel.jaicp.endpoints.ktor.channelCheckEndpoint
 import com.justai.jaicf.channel.jaicp.endpoints.ktor.healthCheckEndpoint
 import com.justai.jaicf.channel.jaicp.endpoints.ktor.reloadConfigEndpoint
@@ -36,20 +39,19 @@ class ZbWebhookConnector(
     botApi: BotApi,
     accessToken: String,
     url: String = DEFAULT_PROXY_URL,
-    channels: List<JaicpChannelFactory> = emptyList()
+    channels: List<JaicpChannelFactory> = emptyList(),
 ) : JaicpWebhookConnector(botApi, accessToken, url, channels),
     WithLogger {
 
     private val zbChannel: ZbChannel = ZbChannel(botApi)
 
-    override fun process(request: HttpBotRequest): HttpBotResponse? {
-        return try {
-            val jaicpBotRequest = request.receiveText().asJaicpBotRequest()
-            val channel = channelMap[jaicpBotRequest.channelBotId] ?: zbChannel
-            processJaicpRequest(jaicpBotRequest, channel)?.deserialized()?.asJsonHttpBotResponse()
-        } catch (t: Throwable) {
-            logger.warn("", t)
-            null
+    override fun process(request: HttpBotRequest): HttpBotResponse {
+        val jaicpBotRequest = request.receiveText().asJaicpBotRequest()
+        val channel = channelMap[jaicpBotRequest.channelBotId] ?: zbChannel
+        return when (val response = processJaicpRequest(jaicpBotRequest, channel)) {
+            JaicpAsyncResponse -> HttpBotResponse.accepted()
+            is JaicpErrorResponse -> HttpBotResponse.error(response.message)
+            is JaicpBotResponse -> response.deserialized().asJsonHttpBotResponse()
         }
     }
 }

@@ -7,6 +7,8 @@ import com.justai.jaicf.channel.jaicp.JaicpChannelFactory
 import com.justai.jaicf.channel.jaicp.JaicpPollingConnector
 import com.justai.jaicf.channel.jaicp.dto.JaicpBotRequest
 import com.justai.jaicf.channel.jaicp.dto.JaicpBotResponse
+import com.justai.jaicf.channel.jaicp.dto.JaicpErrorResponse
+import com.justai.jaicf.channel.jaicp.dto.JaicpResponse
 import com.justai.jaicf.helpers.logging.WithLogger
 import io.ktor.client.features.logging.*
 
@@ -15,19 +17,18 @@ class ZbPollingConnector(
     accessToken: String,
     url: String = DEFAULT_PROXY_URL,
     channels: List<JaicpChannelFactory> = emptyList(),
-    logLevel: LogLevel = LogLevel.BODY
+    logLevel: LogLevel = LogLevel.BODY,
 ) : JaicpPollingConnector(botApi, accessToken, url, channels, logLevel),
     WithLogger {
 
     private val channel: ZbChannel = ZbChannel(botApi)
 
-    override fun processJaicpRequest(request: JaicpBotRequest, channel: JaicpBotChannel): JaicpBotResponse? {
+    override fun processJaicpRequest(request: JaicpBotRequest, channel: JaicpBotChannel): JaicpResponse {
         return try {
             this.channel.process(request)
         } catch (t: Throwable) {
             logger.warn("", t)
-            null
+            JaicpErrorResponse(t.message ?: "Internal server error")
         }
-
     }
 }

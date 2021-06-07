@@ -6,9 +6,8 @@ plugins {
 
 dependencies {
     implementation(kotlin("stdlib"))
-    api("com.justai.jaicf:core" version { jaicf })
-    api("com.justai.jaicf:jaicp" version { jaicf })
-    api("com.justai.jaicf:jaicp" version { jaicf })
+    api(jaicf("core"))
+    api(jaicf("jaicp"))
     api("com.fasterxml.jackson.core:jackson-core" version { jackson })
     api("com.fasterxml.jackson.core:jackson-databind" version { jackson })
     api("com.fasterxml.jackson.module:jackson-module-kotlin" version { jackson })
@@ -32,8 +31,4 @@ publishing {
             from(components["java"])
         }
     }
-}
-
-apply {
-    from(rootProject.file("release.gradle"))
 }

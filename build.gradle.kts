@@ -4,7 +4,6 @@ buildscript {
     repositories {
         google()
         jcenter()
-        maven("https://plugins.gradle.org/m2/")
     }
 
     dependencies {
@@ -23,6 +22,5 @@ allprojects {
         mavenCentral()
         mavenLocal()
         maven(uri("https://jitpack.io"))
-        maven("https://dl.bintray.com/vmetelyagin/mva")
     }
 }
